@@ -1,0 +1,77 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    mavenCentral()
+    jcenter()
+}
+
+/*
+ *War Config 
+ */
+war {
+  webInf {
+    
+  }
+}
+
+/*
+ * Tasks 
+ */
+task copyWar(type: Copy) {
+  group 'Hogwash'
+  description 'Copies war to the Jboss deployments folder'
+  from war.archivePath
+  into System.env.'JBOSS_HOME' + '/standalone/deployments'
+}
+//build the war before copying it
+copyWar.dependsOn war
+
+task copyOAuthProps(type: Copy) {
+	group 'Hogwash'
+	description 'Copies oauth.properties file to resource'
+	from( System.env.'PROJECT_INCLUDES' + '/chat/'  ) {
+        include 'oauth.properties'
+    }
+     into 'src/main/resources'
+}
+copyWar.dependsOn copyOAuthProps
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    
+    // logging
+    providedCompile 'commons-logging:commons-logging:1.1.1'
+    providedCompile 'log4j:log4j:1.2.16'
+
+    // jboss
+    providedCompile 'xalan:xalan:2.7.2'
+    providedCompile 'jboss:jboss-common-client:3.2.3'
+    providedCompile 'org.jboss.spec:jboss-javaee-7.0:1.0.3.Final'
+    providedCompile 'org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec:1.0.0.Final'
+    providedCompile 'org.jboss.logging:jboss-logging:3.1.0.GA'
+    providedCompile 'org.jboss.spec.javax.websocket:jboss-websocket-api_1.0_spec:1.0.0.Final'
+    
+    // java rest
+    providedCompile 'javax.ws.rs:jsr311-api:1.1.1'
+
+	//ouath
+	compile 'com.github.scribejava:scribejava-apis:2.0'
+
+
+    // xml and json
+    compile 'com.fasterxml.jackson:jackson-parent:2.5.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.1.5'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.0.6'
+    
+    // database
+    compile 'org.postgresql:postgresql:9.4-1202-jdbc42'
+    
+    testCompile 'junit:junit:4.12'
+}
+ 
