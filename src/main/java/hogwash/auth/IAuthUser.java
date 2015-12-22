@@ -1,19 +1,17 @@
 package hogwash.auth;
 
-import com.github.scribejava.core.builder.api.Api;
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Token;
-import com.github.scribejava.core.oauth.OAuthService;
-
 public interface IAuthUser
 {
-  public OAuthService buildService(Class< ? extends Api > apiClass);
+  // private String accessToken;
+  // private String refeshToken;
+  // private String expiresIn;
+  // private String tokenId;
 
-  public String serviceRedirect();
+  public String getAccessToken();
 
-  public Response getResponseForProfile();
+  public void setAccessToken(String token);
 
-  public Token buildAccessToken(String code);
+  public int getExpiresIn();
 
-  public Response getRefreshToken(String code);
+  public void setExpiresIn(int expiresIn);
 }

@@ -1,41 +1,33 @@
 package hogwash.auth;
-
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Token;
-
-public class AuthFacebookUser extends AuthUser
+public class AuthFacebookUser implements IAuthUser
 {
+  private String accessToken;
+  private int    expiresIn;
 
-  public AuthFacebookUser( String provider ) {
-    super( provider );
+  @Override
+  public String getAccessToken()
+  {
+    return accessToken;
   }
 
   @Override
-  public Response getResponseForProfile()
+  public void setAccessToken(String token)
   {
-    // TODO Auto-generated method stub
-    return null;
+    this.accessToken = token;
+
   }
 
   @Override
-  public String serviceRedirect()
+  public int getExpiresIn()
   {
-    // TODO Auto-generated method stub
-    return null;
+    return expiresIn;
   }
 
   @Override
-  public Token buildAccessToken(String code)
+  public void setExpiresIn(int expiresIn)
   {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    this.expiresIn = expiresIn;
 
-  @Override
-  public Response getRefreshToken(String code)
-  {
-    // TODO Auto-generated method stub
-    return null;
   }
 
 }

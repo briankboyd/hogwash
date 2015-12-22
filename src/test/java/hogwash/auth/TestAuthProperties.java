@@ -1,4 +1,4 @@
-package howwash.auth;
+package hogwash.auth;
 
 import java.util.Properties;
 

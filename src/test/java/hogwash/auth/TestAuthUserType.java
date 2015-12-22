@@ -1,4 +1,4 @@
-package howwash.auth;
+package hogwash.auth;
 
 import static org.junit.Assert.assertTrue;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import hogwash.auth.AuthContstant;
 import hogwash.auth.AuthProviderType;
-import hogwash.auth.AuthUser;
+import hogwash.auth.AuthProvider;
 
 public class TestAuthUserType
 {
@@ -15,7 +15,7 @@ public class TestAuthUserType
   public void testGoogleAuthUserType()
   {
     AuthProviderType authUserType = AuthProviderType.provider( AuthContstant.GOOGLE );
-    AuthUser authUser = authUserType.getAuthUser();
+    AuthProvider authUser = authUserType.getAuthUser();
     System.out.println( authUser.getClass().getName() );
     System.out.println( authUserType.toString() );
     assertTrue( true );

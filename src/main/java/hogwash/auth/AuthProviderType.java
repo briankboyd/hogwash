@@ -6,17 +6,17 @@ public enum AuthProviderType
   GOOGLE(AuthContstant.GOOGLE)
   {
     @Override
-    public AuthUser getAuthUser()
+    public AuthProvider getAuthUser()
     {
-      return new AuthGoogleUser( provider );
+      return new AuthGoogleProvider( provider );
     }
   },
   FACEBOOK(AuthContstant.FACEBOOK)
   {
     @Override
-    public AuthUser getAuthUser()
+    public AuthProvider getAuthUser()
     {
-      return new AuthFacebookUser( provider );
+      return new AuthFacebookProvider( provider );
     }
   };
 
@@ -35,7 +35,7 @@ public enum AuthProviderType
     return name;
   }
 
-  public abstract AuthUser getAuthUser();
+  public abstract AuthProvider getAuthUser();
 
   public static AuthProviderType provider(String value)
   {

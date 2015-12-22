@@ -7,6 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import hogwash.auth.AuthService;
+import hogwash.user.UserService;
 
 @ApplicationPath("/rest/v1")
 public class ApplicationService extends Application
@@ -16,6 +17,7 @@ public class ApplicationService extends Application
   {
     Set< Class< ? > > restClass = new HashSet< Class< ? > >();
     restClass.add( AuthService.class );
+    restClass.add( UserService.class );
     return restClass;
   }
 }

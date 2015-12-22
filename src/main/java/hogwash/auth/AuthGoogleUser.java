@@ -1,59 +1,63 @@
 package hogwash.auth;
 
-import com.github.scribejava.apis.GoogleApi20;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Token;
-import com.github.scribejava.core.model.Verb;
-import com.github.scribejava.core.model.Verifier;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AuthGoogleUser extends AuthUser
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class AuthGoogleUser implements IAuthUser
 {
-  private final static String ACCESS_TYPE  = "&access_type=offline";
-  private final static String FORCE_PROMPT = "&approval_prompt=force";
+  @JsonProperty("access_token")
+  private String accessToken;
+  @JsonProperty("expires_in")
+  private int    expiresIn;
+  @JsonProperty("refresh_token")
+  private String refreshToken;
+  @JsonProperty("id_token")
+  private String tokenId;
 
-  public AuthGoogleUser( String provider ) {
-    super( provider );
-    buildService( GoogleApi20.class );
+  @Override
+  public String getAccessToken()
+  {
+    return accessToken;
   }
 
   @Override
-  public String serviceRedirect()
+  public void setAccessToken(String token)
   {
-    return getService().getAuthorizationUrl( Token.empty() ) + ACCESS_TYPE;
+    this.accessToken = token;
+
   }
 
   @Override
-  public Response getResponseForProfile()
+  public int getExpiresIn()
   {
-    OAuthRequest oauthRequest = new OAuthRequest( Verb.GET, getUserInfoUrl(), getService() );
-    getService().signRequest( getAccessToken(), oauthRequest );
-    return oauthRequest.send();
+    return expiresIn;
   }
 
   @Override
-  public Response getRefreshToken(String code)
+  public void setExpiresIn(int expiresIn)
   {
-    OAuthRequest request = new OAuthRequest( Verb.POST, "https://www.googleapis.com/oauth2/v4/token", getService() );
-    // request.addBodyParameter( "grant_type", "refresh_token" );
-    // request.addBodyParameter( "refresh_token", getAccessToken().getToken() );
-    // request.addBodyParameter( "client_id", getApiKey() );
-    // request.addBodyParameter( "client_secret", getApiSecret() );
-
-    request.addBodyParameter( "code", code );
-    request.addBodyParameter( "client_id", getApiKey() );
-    request.addBodyParameter( "client_secret", getApiSecret() );
-    request.addBodyParameter( "redirect_uri", getCallback() );
-    request.addBodyParameter( "grant_type", "authorization_code" );
-    return request.send();
+    this.expiresIn = expiresIn;
   }
 
-  @Override
-  public Token buildAccessToken(String code)
+  public String getRefreshToken()
   {
-    Token token = getService().getAccessToken( Token.empty(), new Verifier( code ) );
-    setToken( token );
-    return token;
+    return refreshToken;
+  }
+
+  public void setRefreshToken(String refreshToken)
+  {
+    this.refreshToken = refreshToken;
+  }
+
+  public String getTokenId()
+  {
+    return tokenId;
+  }
+
+  public void setTokenId(String tokenId)
+  {
+    this.tokenId = tokenId;
   }
 
 }
