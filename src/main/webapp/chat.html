@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hogwash</title>
-  </head>
-  <body>
-    <p>
-      you've made it
-    </p>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title>Hogwash</title>
+</head>
+
+<body>
+  <div class="" id="app"></div>
+
+  </div>
+  <script type="text/javascript">
+   function socket( roomId )
+   {
+     var ws = new WebSocket("ws://localhost:8080/chat/messageportal/" + roomId);
+
+     ws.onopen = function() {
+       console.log("Opened");
+       var msg = {
+         roomId: roomId,
+         userId: 2,
+         message: "hello server"
+       }
+       ws.send( JSON.stringify( msg ) );
+     };
+
+     ws.onmessage = function(evt) {
+       var msg = JSON.parse(evt.data);
+       console.log( msg );
+     };
+
+     ws.onclose = function() {
+       console.log("Closed");
+     };
+
+     ws.onerror = function(err) {
+       console.log("Error: " + err);
+     };
+
+     return ws;
+   }
+  //  socket( 1 );
+  //  socket( 2 );
+
+  </script>
+</body>
+
 </html>

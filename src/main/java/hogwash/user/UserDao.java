@@ -1,12 +1,12 @@
 package hogwash.user;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import hogwash.auth.AuthService;
 
 public class UserDao implements IUserDao
 {
+  public static List< IUser > users = new ArrayList< IUser >();
+  public static int           count = 0;
 
   @Override
   public List< IUser > getAllUsers()
@@ -18,9 +18,9 @@ public class UserDao implements IUserDao
   @Override
   public IUser createUser(IUser user)
   {
-    int id = ThreadLocalRandom.current().nextInt( 0, 100 + 1 );
-    user.setUserId( id );
-    AuthService.users.add( user );
+    user.setUserId( UserDao.count );
+    UserDao.users.add( user );
+    UserDao.count++;
     return user;
   }
 

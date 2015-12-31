@@ -3,7 +3,7 @@ package hogwash.auth;
 import com.github.scribejava.apis.FacebookApi;
 import com.github.scribejava.core.model.Response;
 
-import hogwash.user.FacebookUser;
+import hogwash.user.UserFacebook;
 
 public class AuthFacebookProvider extends AuthProvider
 {
@@ -16,7 +16,7 @@ public class AuthFacebookProvider extends AuthProvider
   @Override
   public String getClassName()
   {
-    return FacebookUser.class.getName();
+    return UserFacebook.class.getName();
   }
 
   @Override

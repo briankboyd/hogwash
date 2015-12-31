@@ -9,7 +9,7 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Token;
 import com.github.scribejava.core.model.Verb;
 
-import hogwash.user.GoogleUser;
+import hogwash.user.UserGoogle;
 
 public class AuthGoogleProvider extends AuthProvider
 {
@@ -30,7 +30,7 @@ public class AuthGoogleProvider extends AuthProvider
   @Override
   public String getClassName()
   {
-    return GoogleUser.class.getName();
+    return UserGoogle.class.getName();
   }
 
   @Override

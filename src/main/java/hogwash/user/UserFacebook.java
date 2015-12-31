@@ -1,5 +1,6 @@
 package hogwash.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,42 +8,41 @@ import hogwash.auth.AuthContstant;
 import hogwash.auth.IAuthUser;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FacebookUser implements IUser
+public class UserFacebook implements IUser
 {
   private int       userId;
-  @JsonProperty("id")
   private String    providerId;
-  @JsonProperty("email")
   private String    email;
   @JsonProperty("first_name")
   private String    firstName;
-  @JsonProperty("last_name")
   private String    lastName;
-  @JsonProperty("gender")
   private String    gender;
-  @JsonProperty("locale")
   private String    locale;
   private String    provider = AuthContstant.FACEBOOK;
   private IAuthUser authUser;
 
+  @JsonIgnore
   @Override
   public String getProviderId()
   {
     return providerId;
   }
 
+  @JsonProperty("id")
   @Override
   public void setProviderId(String userId)
   {
     this.providerId = userId;
   }
 
+  @JsonIgnore
   @Override
   public String getEmail()
   {
     return email;
   }
 
+  @JsonProperty("email")
   @Override
   public void setEmail(String email)
   {
@@ -61,36 +61,42 @@ public class FacebookUser implements IUser
     this.firstName = firstName;
   }
 
+  @JsonIgnore
   @Override
   public String getLastName()
   {
     return lastName;
   }
 
+  @JsonProperty("last_name")
   @Override
   public void setLastName(String lastName)
   {
     this.lastName = lastName;
   }
 
+  @JsonIgnore
   @Override
   public String getGender()
   {
     return gender;
   }
 
+  @JsonProperty("gender")
   @Override
   public void setGender(String gender)
   {
     this.gender = gender;
   }
 
+  @JsonIgnore
   @Override
   public String getLocale()
   {
     return locale;
   }
 
+  @JsonProperty("locale")
   @Override
   public void setLocale(String locale)
   {
@@ -109,6 +115,7 @@ public class FacebookUser implements IUser
     this.provider = provider;
   }
 
+  @JsonIgnore
   @Override
   public IAuthUser getAuthUser()
   {

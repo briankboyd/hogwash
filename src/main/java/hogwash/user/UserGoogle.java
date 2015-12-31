@@ -8,11 +8,12 @@ import hogwash.auth.AuthContstant;
 import hogwash.auth.IAuthUser;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GoogleUser implements IUser
+public class UserGoogle implements IUser
 {
   private int       userId;
   private String    providerId;
   private String    email;
+  @JsonProperty("given_name")
   private String    firstName;
   private String    lastName;
   private String    gender;
@@ -60,14 +61,12 @@ public class GoogleUser implements IUser
     this.email = email;
   }
 
-  @JsonIgnore
   @Override
   public String getFirstName()
   {
     return firstName;
   }
 
-  @JsonProperty("given_name")
   @Override
   public void setFirstName(String firstName)
   {

@@ -1,8 +1,6 @@
 package hogwash.auth;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +26,6 @@ public class AuthService
   private HttpServletRequest  request;
 
   private HttpSession         session;
-  public static List< IUser > users = new ArrayList< IUser >();
 
   @Path("/provider")
   @GET
@@ -67,6 +64,7 @@ public class AuthService
         System.out.println( "error authenticating" );
         sendRedirect( request.getContextPath() );
       } // TODO haven't validated what a face book error response looks like
+      // TODO check state
       else if ( code != null && code.length() > 0 )
       {
         Token accessToken = authProvider.buildAccessToken( code );
