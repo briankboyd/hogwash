@@ -2,7 +2,7 @@ package hogwash.user;
 
 import hogwash.auth.IAuthUser;
 
-public interface IUser
+public interface IUserSocial
 {
   public int getUserId();
 

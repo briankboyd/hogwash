@@ -8,7 +8,7 @@ import hogwash.auth.AuthContstant;
 import hogwash.auth.IAuthUser;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserFacebook implements IUser
+public class UserFacebook implements IUserSocial
 {
   private int       userId;
   private String    providerId;

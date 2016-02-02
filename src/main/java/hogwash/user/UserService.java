@@ -32,7 +32,7 @@ public class UserService
   public Response getCurrentUser() throws JsonProcessingException
   {
     session = request.getSession();
-    IUser user = (IUser) session.getAttribute( AuthContstant.USER );
+    IUserSocial user = (IUserSocial) session.getAttribute( AuthContstant.USER );
     ObjectMapper mapper = new ObjectMapper();
     String json = mapper.writer().withDefaultPrettyPrinter().writeValueAsString( user );
     return Response.ok( json ).build();

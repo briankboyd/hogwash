@@ -19,12 +19,6 @@ import javax.websocket.server.ServerEndpoint;
     MessageDecoder.class })
 public class MessagePortal
 {
-
-  // private static final List< ConcurrentHashMap< Integer, Session > >
-  // sessionList =
-  // Collections.synchronizedList( new ArrayList< ConcurrentHashMap< Integer,
-  // Session > >() );
-
   private static final Map< Integer, List< Session > > sessionsMap =
       new ConcurrentHashMap< Integer, List< Session > >();
 
@@ -32,7 +26,7 @@ public class MessagePortal
   public void onOpen(@PathParam("roomId") int roomId,
                      Session session)
   {
-    // check if user has access to room
+    // TODO: check if user has access to room
     List< Session > sessionsList;
     sessionsList = sessionsMap.get( roomId );
 
@@ -49,27 +43,38 @@ public class MessagePortal
                       Session currentSession)
   {
     List< Session > sessionsList = sessionsMap.get( roomId );
-    for ( Session session : sessionsList )
-    {
+    sessionsList.forEach( session -> {
       if ( session.getId().equals( currentSession.getId() ) )
       {
         sessionsList.remove( currentSession );
       }
-    }
+    } );
   }
 
   @OnMessage
   public void onMessage(@PathParam("roomId") int roomId,
-                        Message message) throws IOException, EncodeException
+                        Message message)
   {
     List< Session > sessionsList = sessionsMap.get( roomId );
-    for ( Session session : sessionsList )
+    sessionsList.forEach( session -> {
+      sendMessage( session, message );
+    } );
+  }
+
+  private void sendMessage(Session session,
+                           Message message)
+  {
+    if ( session.isOpen() )
     {
-      if ( session.isOpen() )
+      try
       {
         session.getBasicRemote().sendObject( message );
       }
-
+      catch ( IOException | EncodeException e )
+      {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
   }
 }

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Token;
 
-import hogwash.user.IUser;
+import hogwash.user.IUserSocial;
 import hogwash.user.UserDao;
 
 @Path("/auth")
@@ -32,7 +32,7 @@ public class AuthService
   public void redirect(@QueryParam(AuthContstant.PROVIDER) String provider)
   {
     session = request.getSession();
-    IUser user = (IUser) session.getAttribute( AuthContstant.USER );
+    IUserSocial user = (IUserSocial) session.getAttribute( AuthContstant.USER );
     if ( user == null )
     {
       AuthProvider authProvider = AuthProviderType.provider( provider ).getAuthUser();
@@ -54,7 +54,7 @@ public class AuthService
                            @QueryParam(AuthContstant.PROVIDER) String provider)
   {
     session = request.getSession();
-    IUser user = (IUser) session.getAttribute( AuthContstant.USER );
+    IUserSocial user = (IUserSocial) session.getAttribute( AuthContstant.USER );
     if ( user == null )
     {
       // how to check if user has already has authenticated
@@ -74,7 +74,7 @@ public class AuthService
         ObjectMapper mapper = new ObjectMapper();
         try
         {
-          user = (IUser) mapper.readValue( profileResponse.getBody(), Class.forName( authProvider.getClassName() ) );
+          user = (IUserSocial) mapper.readValue( profileResponse.getBody(), Class.forName( authProvider.getClassName() ) );
           user.setAuthUser( authUser );
           session.setAttribute( "user", user );
           UserDao userDao = new UserDao();

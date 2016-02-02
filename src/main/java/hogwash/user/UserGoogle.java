@@ -8,7 +8,7 @@ import hogwash.auth.AuthContstant;
 import hogwash.auth.IAuthUser;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserGoogle implements IUser
+public class UserGoogle implements IUserSocial
 {
   private int       userId;
   private String    providerId;

@@ -41,24 +41,31 @@ public class MessageDecoder implements Decoder.TextStream< Message >
       String fieldname = jsonParser.getCurrentName();
       if ( Message.Fields.ROOM_ID.equals( fieldname ) )
       {
+
         // current token is "name",
         // move to next, which is "name"'s value
         jsonParser.nextToken();
         message.setRoomId( jsonParser.getIntValue() );
         // System.out.println( jsonParser.getIntValue() );
+
       }
+
       if ( Message.Fields.USER_ID.equals( fieldname ) )
       {
+
         jsonParser.nextToken();
         message.setUserId( jsonParser.getIntValue() );
         // System.out.println( jsonParser.getIntValue() );
+
       }
       if ( Message.Fields.MSG.equals( fieldname ) )
       {
+
         jsonParser.nextToken();
         message.setMessage( jsonParser.getText() );
         // System.out.println( jsonParser.getText() );
       }
+
     }
     jsonParser.close();
     return message;

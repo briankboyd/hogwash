@@ -5,18 +5,18 @@ import java.util.List;
 
 public class UserDao implements IUserDao
 {
-  public static List< IUser > users = new ArrayList< IUser >();
+  public static List< IUserSocial > users = new ArrayList< IUserSocial >();
   public static int           count = 0;
 
   @Override
-  public List< IUser > getAllUsers()
+  public List< IUserSocial > getAllUsers()
   {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public IUser createUser(IUser user)
+  public IUserSocial createUser(IUserSocial user)
   {
     user.setUserId( UserDao.count );
     UserDao.users.add( user );

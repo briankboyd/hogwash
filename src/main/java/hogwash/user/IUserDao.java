@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface IUserDao
 {
-  public List< IUser > getAllUsers();
+  public List< IUserSocial > getAllUsers();
 
-  public IUser createUser(IUser user);
+  public IUserSocial createUser(IUserSocial user);
 
   public void updateUser(int id);
 
